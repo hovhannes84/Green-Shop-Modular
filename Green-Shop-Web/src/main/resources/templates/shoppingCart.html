@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html class="no-js" lang="zxx" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>Cart</title>
+    <div th:include="fragment/header::inportFragment"></div>
+
+    <div th:include="fragment/header::headrFragment"></div>
+
+</head>
+<body>
+
+<section class="breadcrumb-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="breadcrumb-box text-center">
+                    <ul class="list-unstyled list-inline">
+                        <li class="list-inline-item"><a href="/">Home</a></li>
+                        <li class="list-inline-item"><span>||</span> Shopping Cart</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Shopping Cart -->
+<section class="shopping-cart">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="cart-table table-responsive">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th class="t-pro">Product</th>
+                            <th class="t-price">Price</th>
+                            <th class="t-qty">Quantity</th>
+                            <th class="t-total">Total</th>
+                            <th class="t-rem"></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="cartDto : ${carts}">
+                            <td class="t-pro d-flex">
+                                <div class="t-img">
+                                    <a href="#"><img th:src="${cartDto.productDto.getImage()}" alt=""></a>
+                                </div>
+                                <div class="t-content">
+                                    <p class="t-heading"><a href="#" th:text="${cartDto.productDto.name}"></a></p>
+                                    <ul class="list-unstyled list-inline rate">
+                                        <li class="list-inline-item" th:each="star : ${#numbers.sequence(1, 5)}">
+                                            <i th:class="${star <= cartDto.productDto.getRating()} ? 'fa fa-star' : 'fa fa-star-o'"></i>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </td>
+                            <td class="t-price" th:text="${cartDto.productDto.price}"></td>
+                            <td class="t-qty">
+
+                                <div class="qty-box">
+                                    <form method="POST" action="/cart/update">
+                                        <div class="quantity buttons_added">
+                                            <input type="hidden" name="cartId" th:value="${cartDto.id}">
+                                            <input type="button" value="-" class="minus">
+                                            <input type="number" name="quantity" step="1" min="1" max="10"
+                                                   th:value="${cartDto.quantity}" class="qty text" size="4">
+                                            <input type="button" value="+" class="plus">
+                                            <input type="submit" value="Update" class="update-btn"></div>
+                                    </form>
+                                </div>
+
+
+                            </td>
+                            <td class="t-total" th:text="${cartDto.productDto.price * cartDto.quantity}"></td>
+                            <td class="t-rem"><a th:href="@{/cart/remove(id=${cartDto.id})}">Delate<i class="fa fa-trash-o"></i></a></td>
+                        </tr>
+
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="shipping">
+                    <h6>Calculate Shipping and Tax</h6>
+                    <p>Enter your destination to get shipping estimate</p>
+                    <form action="#">
+                        <div class="country-box">
+                            <select class="country">
+                                <option>Select Country</option>
+                                <option>United State</option>
+                                <option>United Kingdom</option>
+                                <option>Germany</option>
+                                <option>Australia</option>
+                            </select>
+                        </div>
+                        <div class="state-box">
+                            <select class="state">
+                                <option>State/Province</option>
+                                <option>State 1</option>
+                                <option>State 2</option>
+                                <option>State 3</option>
+                                <option>State 4</option>
+                            </select>
+                        </div>
+                        <div class="post-box">
+                            <input type="text" name="zip" value="" placeholder="Zip/Postal Code">
+                            <button type="button">Get Estimate</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="coupon">
+                    <h6>Discount Coupon</h6>
+                    <p>Enter your coupon code if you have one</p>
+                    <form action="#">
+                        <input type="text" name="zip" value="" placeholder="Your Coupon">
+                        <button type="button">Apply Code</button>
+                    </form>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="crt-sumry">
+                    <h5>Cart Summary</h5>
+                    <ul class="list-unstyled">
+                        <li>Subtotal <span th:text="${subtotal}"></span></li>
+                        <li>Grand Total <span th:text="${subtotal}"></span></li>
+                    </ul>
+                    <div class="cart-btns text-right">
+                        <form action="/cart/update" method="post">
+                            <input type="hidden" name="productId" value="<productIdValue>">
+                            <button type="submit" class="up-cart">Update Cart</button>
+                            <button type="button" class="chq-out">Checkout</button>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+<!-- End Shopping Cart -->
+<div th:include="fragment/header::footerFragment"></div>
+
+<!-- End Footer Area -->
+
+<!-- =========================================
+JavaScript Files
+========================================== -->
+<!-- jQuery JS -->
+<script src="/js/assets/vendor/jquery-1.12.4.min.js"></script>
+
+<!-- Bootstrap -->
+<script src="/js/assets/popper.min.js"></script>
+<script src="/js/assets/bootstrap.min.js"></script>
+
+<!-- Owl Slider -->
+<script src="/js/assets/owl.carousel.min.js"></script>
+
+<!-- Wow Animation -->
+<script src="/js/assets/wow.min.js"></script>
+
+<!-- Price Filter -->
+<script src="/js/assets/price-filter.js"></script>
+
+<!-- Mean Menu -->
+<script src="/js/assets/jquery.meanmenu.min.js"></script>
+
+<!-- Custom JS -->
+<script src="/js/plugins.js"></script>
+<script src="/js/custom.js"></script>
+
+
+</body>
+</html>
+

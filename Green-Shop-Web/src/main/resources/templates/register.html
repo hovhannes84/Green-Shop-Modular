@@ -1,0 +1,159 @@
+﻿<!doctype html>
+<html class="no-js" lang="zxx">
+    <head>
+        <meta charset="utf-8">
+        <div th:include="fragment/header::inportFragment"></div>
+
+    </head>
+    <body>
+
+    <div th:include="fragment/header::headrFragment"></div>
+
+        <!-- Breadcrumb Area -->
+        <section class="breadcrumb-area">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="breadcrumb-box text-center">
+                            <ul class="list-unstyled list-inline">
+                                <li class="list-inline-item"><a href="">Home</a></li>
+                                <li class="list-inline-item"><span>||</span> Register</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- End Breadcrumb Area -->
+
+        <!-- Register -->
+    <section class="register">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <form action="/user/register" method="post">
+                        <h5>Create Your Account</h5>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label>First Name*</label>
+                                <input type="text" name="name" placeholder="Your first name">
+                            </div>
+                            <div class="col-md-12">
+                                <label>Last Name*</label>
+                                <input type="text" name="surname" placeholder="Your Last surname">
+                            </div>
+                            <div class="col-md-12">
+                                <label>Email Address*</label>
+                                <input type="text" name="email" placeholder="Your email address">
+                            </div>
+                            <div class="col-md-12">
+                                <label>Phone Number*</label>
+                                <input type="text" name="phone" placeholder="Your phone number">
+                            </div>
+                            <div class="col-md-12">
+                                <label>Password*</label>
+                                <input  type="text"  name="password" placeholder="Password should be more than 6 characters">
+                            </div>
+
+                            <div class="col-md-12">
+                                <label>Country</label>
+                                <input type="text" name="country" placeholder="your country">
+                            </div>
+                            <div class="col-md-12">
+                                <div>
+                                    <label>City</label>
+                                    <input type="text" name="city" placeholder="your city">
+                                </div>
+                                <div>
+                                    <label>Street</label>
+                                    <input type="text" name="street" placeholder="your street">
+                                </div>
+                                <div>
+                                    <label>House</label>
+                                    <input type="text" name="house" placeholder="your house">
+                                </div>
+                                <div>
+                                    <label>Postal_code</label>
+                                    <input type="text" name="postal_code" placeholder="your postal_code">
+                                </div>
+                            </div>
+                            <div class="col-md-5 text-right">
+                                <button type="submit" name="button">register</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- End Register -->
+
+        <!-- Brand area 2 -->
+        <section class="brand2">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="tp-bnd owl-carousel">
+                            <div class="bnd-items">
+                                <a href="#"><img src="/images/brand-01.png" alt="" class="img-fluid"></a>
+                            </div>
+                            <div class="bnd-items">
+                                <a href="#"><img src="/images/brand-02.png" alt="" class="img-fluid"></a>
+                            </div>
+                            <div class="bnd-items">
+                                <a href="#"><img src="/images/brand-03.png" alt="" class="img-fluid"></a>
+                            </div>
+                            <div class="bnd-items">
+                                <a href="#"><img src="/images/brand-04.png" alt="" class="img-fluid"></a>
+                            </div>
+                            <div class="bnd-items">
+                                <a href="#"><img src="/images/brand-05.png" alt="" class="img-fluid"></a>
+                            </div>
+                            <div class="bnd-items">
+                                <a href="#"><img src="/images/brand-06.png" alt="" class="img-fluid"></a>
+                            </div>
+                            <div class="bnd-items">
+                                <a href="#"><img src="/images/brand-07.png" alt="" class="img-fluid"></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- End Brand area 2 -->
+
+    <div th:include="fragment/header::footerFragment"></div>
+
+    <!-- End Footer Area -->
+
+
+        <!-- =========================================
+        JavaScript Files
+        ========================================== -->
+
+        <!-- jQuery JS -->
+        <script src="/js/assets/vendor/jquery-1.12.4.min.js"></script>
+
+        <!-- Bootstrap -->
+        <script src="/js/assets/popper.min.js"></script>
+        <script src="/js/assets/bootstrap.min.js"></script>
+
+        <!-- Owl Slider -->
+        <script src="/js/assets/owl.carousel.min.js"></script>
+
+        <!-- Wow Animation -->
+        <script src="/js/assets/wow.min.js"></script>
+
+        <!-- Price Filter -->
+        <script src="/js/assets/price-filter.js"></script>
+
+        <!-- Mean Menu -->
+        <script src="/js/assets/jquery.meanmenu.min.js"></script>
+
+        <!-- Custom JS -->
+        <script src="/js/plugins.js"></script>
+        <script src="/js/custom.js"></script>
+
+    </body>
+</html>

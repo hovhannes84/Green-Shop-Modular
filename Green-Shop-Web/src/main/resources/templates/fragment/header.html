@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<body>
+<div th:fragment="inportFragment">
+
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="/images/favicon.ico" type="image/x-icon">
+
+
+    <link href="/css?family=Source+Sans+Pro:200,300,400,600,700,900" rel="stylesheet">
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="/css/assets/bootstrap.min.css">
+
+    <!-- Fontawesome Icon -->
+    <link rel="stylesheet" href="/css/assets/font-awesome.min.css">
+
+    <!-- Animate Css -->
+    <link rel="stylesheet" href="/css/assets/animate.css">
+
+    <!-- Owl Slider -->
+    <link rel="stylesheet" href="/css/assets/owl.carousel.min.css">
+
+    <!-- Custom Style -->
+    <link rel="stylesheet" href="/css/assets/normalize.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/assets/responsive.css">
+</div>
+
+<div th:fragment="headrFragment">
+    <!-- Preloader -->
+    <div class="preloader">
+        <div class="load-list">
+            <div class="load"></div>
+            <div class="load load2"></div>
+        </div>
+    </div>
+    <!-- End Preloader -->
+
+    <!-- Top Bar 2 -->
+    <section class="top-bar2">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="top-left d-flex">
+                        <div class="lang-box">
+                            <span><img src="/images/fl-eng.png" alt="">English<i class="fa fa-angle-down"></i></span>
+                            <ul class="list-unstyled">
+                                <li><img src="/images/fl-eng.png" alt="">English</li>
+                                <li><img src="/images/fl-fra.png" alt="">Հայերեն</li>
+                                <li><img src="/images/fl-ger.png" alt="">Русский</li>
+
+                            </ul>
+                        </div>
+                        <div class="mny-box">
+                            <span>USD<i class="fa fa-angle-down"></i></span>
+                        </div>
+                        <div class="call-us">
+                            <p><img src="/images/phn.png" alt="">+374 (090) 000 xxx</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="top-right text-right">
+                        <ul class="list-unstyled list-inline">
+                            <li class="list-inline-item"><a th:if="${currentUser!= null}" href="/user"><img
+                                     alt="">Welcome <b th:text="${currentUser.name}"></b> <br></a></li>
+
+
+                            <li class="list-inline-item"><a href="/user"><img src="/images/user.png" alt="">My Account</a>
+                            <li class="list-inline-item"><a th:if="${currentUser== null}" href="/login"><img
+                                    src="/images/login.png" alt="">Login</a></li>
+                            <li class="list-inline-item"><a th:if="${currentUser!= null}" href="/logout"><img
+                                    src="/images/checkout.png" alt="">Logout</a></li>
+                            <li class="list-inline-item"><a th:if="${currentUser!= null}" href="/cart"><img
+                                    src="/images/cart.png" alt="">Cart</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- End Top Bar 2 -->
+
+    <!-- Logo Area 2 -->
+    <section class="logo-area2">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="logo">
+                        <a href="/"><img src="/images/logo.png" alt=""></a>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-7 padding-fix">
+                    <form action="#" class="search-bar d-flex">
+                        <input type="text" name="search-bar" placeholder="I'm looking for...">
+                        <div class="search-cat">
+                            <select class="form-control scat-id">
+                                <option th:each="category : ${categories}" th:value="${category.id}"
+                                        th:text="${category.name}"></option>
+                            </select>
+                        </div>
+                        <button  type="submit"><i class="fa fa-search"></i></button>
+                    </form>
+                </div>
+
+                <div class="col-lg-3 col-md-2">
+                    <div class="carts-area d-flex">
+                        <div class="cart-box ml-4" th:each="cart : ${carts}">
+                            <a href="#" data-toggle="tooltip" data-placement="top" title="Shopping Cart"
+                               class="cart-btn">
+                                <img src="/images/cart.png" alt="cart">
+                                <span th:text="${carts.size()}"></span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- End Logo Area 2 -->
+
+    <!-- Cart Body -->
+    <div class="cart-body">
+        <div class="close-btn">
+            <button class="close-cart"><img src="/images/close.png" alt="">Close</button>
+        </div>
+        <div class="crt-bd-box">
+            <div class="cart-heading text-center">
+                <h5>Shopping Cart</h5>
+            </div>
+            <div class="cart-content" th:each="cart : ${carts}">
+                <div class="content-item d-flex justify-content-between">
+                    <div class="cart-img">
+                        <a href=""><img th:src="${cart.productDto.getImage()}" alt=""></a>
+                    </div>
+                    <div class="cart-disc">
+                        <p><a href="" th:text="${cart.productDto.name}"></a></p>
+                        <span th:text="${cart.quantity}"> </span>
+                        <span> X </span>
+                        <span th:text="${cart.productDto.price}"> </span>
+
+                    </div>
+                    <div class="delete-btn">
+                        <a href=""><i class="fa fa-trash-o"></i></a>
+                    </div>
+                </div>
+
+            </div>
+            <div class="cart-btm">
+                <p class="text-right">Sub Total: <span th:text="${subtotal}"></span></p>
+                <a href="#">Checkout</a>
+            </div>
+        </div>
+    </div>
+    <div class="cart-overlay"></div>
+    <!-- End Cart Body -->
+
+    <!-- Sticky Menu -->
+    <section class="sticky-menu">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-2 col-md-3">
+                    <div class="sticky-logo">
+                        <a href="/"><img src="/images/logo.png" alt="" class="img-fluid"></a>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-7">
+                    <div class="main-menu">
+                        <ul class="list-unstyled list-inline">
+                            <li class="list-inline-item"><a href="/">>HOME <i class="fa fa-angle-down"></i></a>
+                            </li>
+                            <li class="list-inline-item mega-menu"><a>MEGA MENU <i class="fa fa-angle-down"></i></a>
+                                <div class="mega-box">
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <div class="clt-area">
+                                                <h6>Clothing</h6>
+                                                <div class="link-box">
+                                                    <a href="">- Western Clothing</a>
+                                                    <a href="">- Traditional Clothing</a>
+                                                    <a href="">- Winter Clothing</a>
+                                                    <a href="">- Summer Clothing</a>
+                                                    <a href="">- Inner Wear</a>
+                                                    <a href="">- Night Wear</a>
+                                                    <a href="">- Mens Clothing</a>
+                                                    <a href="">- Womens Clothing</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="sm-phn">
+                                                <h6>Smartphones</h6>
+                                                <div class="dept-box">
+                                                    <a href="">- Samsung</a>
+                                                    <a href="">- Huawei</a>
+                                                    <a href="">- One Plus</a>
+                                                    <a href="">- Xiaomi</a>
+                                                    <a href="">- Iphone</a>
+                                                    <a href="">- Blackberry</a>
+                                                    <a href="">- Nokia</a>
+                                                    <a href="">- Oppo</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3 col-md-6">
+                                            <div class="lt-news">
+                                                <h6>Latest News</h6>
+                                                <div class="news-box d-flex">
+                                                    <div class="news-img">
+                                                        <img src="/images/mega-img-1.jpg" alt="">
+                                                    </div>
+                                                    <div class="news-con">
+                                                        <p>Lorem ipsum dolor sit...</p>
+                                                        <span>Feb 10, 2020</span>
+                                                    </div>
+                                                </div>
+                                                <div class="news-box d-flex">
+                                                    <div class="news-img">
+                                                        <img src="/images/mega-img-2.jpg" alt="">
+                                                    </div>
+                                                    <div class="news-con">
+                                                        <p>Lorem ipsum dolor sit...</p>
+                                                        <span>Feb 12, 2020</span>
+                                                    </div>
+                                                </div>
+                                                <div class="news-box d-flex">
+                                                    <div class="news-img">
+                                                        <img src="/images/mega-img-3.jpg" alt="">
+                                                    </div>
+                                                    <div class="news-con">
+                                                        <p>Lorem ipsum dolor sit...</p>
+                                                        <span>Feb 21, 2020</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="m-slider owl-carousel">
+                                                <div class="slider-item">
+                                                    <img src="/images/mega-1.jpg" alt="" class="img-fluid">
+                                                    <span>-65%</span>
+                                                </div>
+                                                <div class="slider-item">
+                                                    <img src="/images/mega-2.jpg" alt="" class="img-fluid">
+                                                    <span>-50%</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="mega-bnr">
+                                                <div class="row">
+                                                    <div class="col-md-3">
+                                                        <a href="#" class="bnr-box text-center">
+                                                            <img src="/images/mega-b-1.jpg" alt="">
+                                                            <span>Camera</span>
+                                                        </a>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <a href="#" class="bnr-box text-center">
+                                                            <img src="/images/mega-b-2.jpg" alt="">
+                                                            <span>Mouse</span>
+                                                        </a>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <a href="#" class="bnr-box text-center">
+                                                            <img src="/images/mega-b-3.jpg" alt="">
+                                                            <span>Earphone</span>
+                                                        </a>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <a href="#" class="bnr-box text-center">
+                                                            <img src="/images/mega-b-4.jpg" alt="">
+                                                            <span>Speaker</span>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="list-inline-item"><a>PAGES <i class="fa fa-angle-down"></i></a>
+                                <ul class="dropdown list-unstyled">
+                                    <li><a href="03-about-us.html">About Us</a></li>
+                                    <li><a href="04-category.html">Category</a></li>
+                                    <li><a href="05-single-product.html">Single Product</a></li>
+                                    <li><a href="06-shopping-cart.html">Shopping Cart</a></li>
+                                    <li><a href="07-checkout.html">Checkout</a></li>
+                                    <li><a href="08-login.html">Log In</a></li>
+                                    <li><a href="09-register.html">Register</a></li>
+                                    <li><a href="10-wishlist.html">Wishlist</a></li>
+                                    <li><a href="11-compare.html">Compare</a></li>
+                                    <li><a href="15-track-order.html">Track Order</a></li>
+                                    <li><a href="12-terms-condition.html">Terms & Condition</a></li>
+                                    <li><a href="13-faq.html">Faq</a></li>
+                                    <li><a href="14-404.html">404</a></li>
+                                </ul>
+                            </li>
+                            <li class="list-inline-item"><a>BLOG <i class="fa fa-angle-down"></i></a>
+                                <ul class="dropdown list-unstyled">
+                                    <li><a href="16-blog-one.html">Blog Style 1</a></li>
+                                    <li><a href="17-blog-two.html">Blog Style 2</a></li>
+                                    <li><a href="18-blog-three.html">Blog Style 3</a></li>
+                                    <li><a href="19-blog-details.html">Blog Details</a></li>
+                                </ul>
+                            </li>
+                            <li class="list-inline-item"><a href="20-contact.html">CONTACT</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-2">
+                    <div class="carts-area d-flex">
+                        <div class="src-box">
+                            <form action="#">
+                                <input type="text" name="search" placeholder="Search Here">
+                                <button type="button" name="button"><i class="fa fa-search"></i></button>
+                            </form>
+                        </div>
+                        <div class="cart-box ml-4" th:each="cart : ${carts}">
+                            <a href="#" data-toggle="tooltip" data-placement="top" title="Shopping Cart"
+                               class="cart-btn">
+                                <img src="/images/cart.png" alt="cart">
+                                <span th:text="${carts.size()}"></span>
+                            </a>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- End Sticky Menu -->
+
+    <!-- Menu Area 2 -->
+
+
+    <section class="menu-area2">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-md-0">
+                    <div class="sidemenu">
+                        <p>All Categories <i class="fa fa-bars"></i></p>
+                        <ul class="list-unstyled gt-menu">
+                            <li th:each="category : ${categories}">
+                                <a href="#"><img src="" alt="" th:text="${category.name}"></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-9 col-md-12">
+                    <div class="main-menu">
+                        <ul class="list-unstyled list-inline">
+                            <li class="list-inline-item"><a href="/">HOME <i class="fa fa-angle-down"></i></a>
+                            </li>
+                            <li class="list-inline-item"><a>PAGE'S <i class="fa fa-angle-down"></i></a>
+                                <ul class="dropdown list-unstyled">
+                                    <li><a href="03-about-us.html">About Us</a></li>
+                                    <li><a href="04-category.html">Category</a></li>
+                                    <li><a href="05-single-product.html">Single Product</a></li>
+                                    <li><a href="06-shopping-cart.html">Shopping Cart</a></li>
+                                    <li><a href="07-checkout.html">Checkout</a></li>
+                                    <li><a href="08-login.html">Log In</a></li>
+                                    <li><a href="09-register.html">Register</a></li>
+                                    <li><a href="/orderPage">Track Order</a></li>
+                                    <li><a href="13-faq.html">Faq</a></li>
+                                    <li><a href="14-404.html">404</a></li>
+                                </ul>
+                            </li>
+                            <li class="list-inline-item mega-menu"><a>MEGA MENU <i class="fa fa-angle-down"></i></a>
+                                <div class="mega-box">
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <div class="clt-area">
+                                                <h6>Clothing</h6>
+                                                <div class="link-box">
+                                                    <a href="">- Western Clothing</a>
+                                                    <a href="">- Traditional Clothing</a>
+                                                    <a href="">- Winter Clothing</a>
+                                                    <a href="">- Summer Clothing</a>
+                                                    <a href="">- Inner Wear</a>
+                                                    <a href="">- Night Wear</a>
+                                                    <a href="">- Mens Clothing</a>
+                                                    <a href="">- Womens Clothing</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="sm-phn">
+                                                <h6>Smartphones</h6>
+                                                <div class="dept-box">
+                                                    <a href="">- Samsung</a>
+                                                    <a href="">- Huawei</a>
+                                                    <a href="">- One Plus</a>
+                                                    <a href="">- Xiaomi</a>
+                                                    <a href="">- Iphone</a>
+                                                    <a href="">- Blackberry</a>
+                                                    <a href="">- Nokia</a>
+                                                    <a href="">- Oppo</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3 col-md-6">
+                                            <div class="lt-news">
+                                                <h6>Latest News</h6>
+                                                <div class="news-box d-flex">
+                                                    <div class="news-img">
+                                                        <img src="/images/mega-img-1.jpg" alt="">
+                                                    </div>
+                                                    <div class="news-con">
+                                                        <p>Lorem ipsum dolor sit...</p>
+                                                        <span>Feb 10, 2020</span>
+                                                    </div>
+                                                </div>
+                                                <div class="news-box d-flex">
+                                                    <div class="news-img">
+                                                        <img src="/images/mega-img-2.jpg" alt="">
+                                                    </div>
+                                                    <div class="news-con">
+                                                        <p>Lorem ipsum dolor sit...</p>
+                                                        <span>Feb 12, 2020</span>
+                                                    </div>
+                                                </div>
+                                                <div class="news-box d-flex">
+                                                    <div class="news-img">
+                                                        <img src="/images/mega-img-3.jpg" alt="">
+                                                    </div>
+                                                    <div class="news-con">
+                                                        <p>Lorem ipsum dolor sit...</p>
+                                                        <span>Feb 21, 2020</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="m-slider owl-carousel">
+                                                <div class="slider-item">
+                                                    <img src="/images/mega-1.jpg" alt="" class="img-fluid">
+                                                    <span>-65%</span>
+                                                </div>
+                                                <div class="slider-item">
+                                                    <img src="/images/mega-2.jpg" alt="" class="img-fluid">
+                                                    <span>-50%</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="mega-bnr">
+                                                <div class="row">
+                                                    <div class="col-md-3">
+                                                        <a href="#" class="bnr-box text-center">
+                                                            <img src="/images/mega-b-1.jpg" alt="">
+                                                            <span>Camera</span>
+                                                        </a>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <a href="#" class="bnr-box text-center">
+                                                            <img src="/images/mega-b-2.jpg" alt="">
+                                                            <span>Mouse</span>
+                                                        </a>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <a href="#" class="bnr-box text-center">
+                                                            <img src="/images/mega-b-3.jpg" alt="">
+                                                            <span>Earphone</span>
+                                                        </a>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <a href="#" class="bnr-box text-center">
+                                                            <img src="/images/mega-b-4.jpg" alt="">
+                                                            <span>Speaker</span>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="list-inline-item"><a>BLOG <i class="fa fa-angle-down"></i></a>
+                                <ul class="dropdown list-unstyled">
+                                    <li><a href="16-blog-one.html">Blog Style 1</a></li>
+                                    <li><a href="17-blog-two.html">Blog Style 2</a></li>
+                                    <li><a href="18-blog-three.html">Blog Style 3</a></li>
+                                    <li><a href="19-blog-details.html">Blog Details</a></li>
+                                </ul>
+                            </li>
+                            <li class="list-inline-item"><a href="20-contact.html">CONTACT</a></li>
+                            <li class="list-inline-item cup-btn"><a href="">Get Your Coupon</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- End Menu Area 2 -->
+
+    <!-- Mobile Menu -->
+    <section class="mobile-menu-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="mobile-menu">
+                        <nav id="dropdown">
+                            <a href=""><img src="/images/logo.png" alt=""></a>
+                            <a href=""><span>Sign In</span></a>
+                            <ul class="list-unstyled">
+                                <li><a href="">Home</a>
+                                    <ul class="list-unstyled">
+                                        <li><a href="index.html">Home Style 1</a></li>
+                                        <li><a href="02-home-two.html">Home Style 2</a></li>
+                                    </ul>
+                                </li>
+                                <li><a href="">Pages</a>
+                                    <ul class="list-unstyled">
+                                        <li><a href="03-about-us.html">About Us</a></li>
+                                        <li><a href="04-category.html">Category</a></li>
+                                        <li><a href="05-single-product.html">Single Product</a></li>
+                                        <li><a href="06-shopping-cart.html">Shopping Cart</a></li>
+                                        <li><a href="07-checkout.html">Checkout</a></li>
+                                        <li><a href="08-login.html">Log In</a></li>
+                                        <li><a href="09-register.html">Register</a></li>
+                                        <li><a href="10-wishlist.html">Wishlist</a></li>
+                                        <li><a href="11-compare.html">Compare</a></li>
+                                        <li><a href="15-track-order.html">Track Order</a></li>
+                                        <li><a href="12-terms-condition.html">Terms & Condition</a></li>
+                                        <li><a href="13-faq.html">Faq</a></li>
+                                        <li><a href="14-404.html">404</a></li>
+                                    </ul>
+                                </li>
+                                <li><a href="">Blog</a>
+                                    <ul class="list-unstyled">
+                                        <li><a href="16-blog-one.html">Blog Style 1</a></li>
+                                        <li><a href="17-blog-two.html">Blog Style 2</a></li>
+                                        <li><a href="18-blog-three.html">Blog Style 3</a></li>
+                                        <li><a href="19-blog-details.html">Blog Details</a></li>
+                                    </ul>
+                                </li>
+                                <li><a href="20-contact.html">Contact</a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- End Mobile Menu -->
+
+
+</div>
+</div>
+<div th:fragment="footerFragment">
+    <!-- Brand area 2 -->
+    <section class="brand2">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- End Brand area 2 -->
+
+    <!-- Footer Area -->
+    <section class="footer-top">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="f-contact">
+                        <h5>Contact Info</h5>
+                        <div class="f-add">
+                            <i class="fa fa-map-marker"></i>
+                            <span>Address:</span>
+                            <p>795 South Park Avenue, Armenia</p>
+                        </div>
+                        <div class="f-email">
+                            <i class="fa fa-envelope"></i>
+                            <span>Email :</span>
+                            <p>green_shop@domain.com</p>
+                        </div>
+                        <div class="f-phn">
+                            <i class="fa fa-phone"></i>
+                            <span>Phone :</span>
+                            <p>+374 090 00 00 00</p>
+                        </div>
+                        <div class="f-social">
+                            <ul class="list-unstyled list-inline">
+                                <li class="list-inline-item"><a href=""><i class="fa fa-facebook"></i></a></li>
+                                <li class="list-inline-item"><a href=""><i class="fa fa-twitter"></i></a></li>
+                                <li class="list-inline-item"><a href=""><i class="fa fa-linkedin"></i></a></li>
+                                <li class="list-inline-item"><a href=""><i class="fa fa-google-plus"></i></a></li>
+                                <li class="list-inline-item"><a href=""><i class="fa fa-pinterest"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="f-cat">
+                        <h5>Categories</h5>
+                        <ul class="list-unstyled">
+                            <li><a href=""><i class="fa fa-angle-right"></i>Clothing</a></li>
+                            <li><a href=""><i class="fa fa-angle-right"></i>Electronics</a></li>
+                            <li><a href=""><i class="fa fa-angle-right"></i>Smartphones & Tablets</a></li>
+                            <li><a href=""><i class="fa fa-angle-right"></i>Computer & Office</a></li>
+                            <li><a href=""><i class="fa fa-angle-right"></i>Home Appliances</a></li>
+                            <li><a href=""><i class="fa fa-angle-right"></i>Leather & Shoes</a></li>
+                            <li><a href=""><i class="fa fa-angle-right"></i>Kids & Babies</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="f-link">
+                        <h5>Quick Links</h5>
+                        <ul class="list-unstyled">
+                            <li><a href=""><i class="fa fa-angle-right"></i>My Account</a></li>
+                            <li><a href=""><i class="fa fa-angle-right"></i>Shopping Cart</a></li>
+                            <li><a href=""><i class="fa fa-angle-right"></i>My Wishlist</a></li>
+                            <li><a href=""><i class="fa fa-angle-right"></i>Checkout</a></li>
+                            <li><a href=""><i class="fa fa-angle-right"></i>Order History</a></li>
+                            <li><a href=""><i class="fa fa-angle-right"></i>Log In</a></li>
+                            <li><a href=""><i class="fa fa-angle-right"></i>Our Locations</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="footer-btm">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <p>Green shop: 2023 | Designed With <i class="fa fa-heart"></i> by <a href="#" target="_blank">SnazzyTheme</a>
+                    </p>
+                </div>
+                <div class="col-md-6 text-right">
+                    <img src="/images/payment.png" alt="" class="img-fluid">
+                </div>
+            </div>
+        </div>
+        <div class="back-to-top text-center">
+            <img src="/images/backtotop.png" alt="" class="img-fluid">
+        </div>
+    </section>
+    <!-- End Footer Area -->
+</div>
+
+</body>
+</html>

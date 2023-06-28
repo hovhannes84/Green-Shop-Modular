@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html class="no-js" lang="zxx" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>Order</title>
+    <div th:include="fragment/header::inportFragment"></div>
+
+    <div th:include="fragment/header::headrFragment"></div>
+
+</head>
+<body>
+
+<section class="breadcrumb-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="breadcrumb-box text-center">
+                    <ul class="list-unstyled list-inline">
+                        <li class="list-inline-item"><a href="/">Home</a></li>
+                        <li class="list-inline-item"><span>||</span> Order</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="shopping-cart">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="cart-table table-responsive">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th class="t-pro">Product</th>
+                            <th class="t-price">Price</th>
+                            <th class="t-qty">Quantity</th>
+                            <th class="t-total">Total</th>
+                            <th class="t-rem">Date</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="order : ${orders}">
+                            <td class="t-pro d-flex">
+                                <div class="t-img">
+                                    <a th:href="@{/products/(id=${order.product.id})}"><img th:src="${order.product.getImage()}" alt=""></a>
+                                </div>
+                                <div class="t-content">
+                                    <p class="t-heading"><a th:href="@{/products/(id=${order.product.id})}" th:text="${order.product.name}"></a></p>
+                                    <ul class="list-unstyled list-inline rate">
+                                        <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                                        <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                                        <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                                        <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                                        <li class="list-inline-item"><i class="fa fa-star-o"></i></li>
+                                    </ul>
+                                </div>
+                            </td>
+                            <td class="t-price" th:text="${order.product.price}"></td>
+                            <td class="t-qty" th:text="${order.getQuantity()}"></td>
+                            <td class="t-total" th:text="${order.product.price * order.quantity}"></td>
+                            <td class="t-qty" th:text="${order.getOrderDate()}"></td>
+                        </tr>
+
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="coupon">
+                    <h6>Discount Coupon</h6>
+                    <p>Enter your coupon code if you have one</p>
+                    <form action="#">
+                        <input type="text" name="zip" value="" placeholder="Your Coupon">
+                        <button type="button">Apply Code</button>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+End Shopping Cart
+<div th:include="fragment/header::footerFragment"></div>
+
+<script src="/js/assets/vendor/jquery-1.12.4.min.js"></script>
+
+<!-- Bootstrap -->
+<script src="/js/assets/popper.min.js"></script>
+<script src="/js/assets/bootstrap.min.js"></script>
+
+<!-- Owl Slider -->
+<script src="/js/assets/owl.carousel.min.js"></script>
+
+<!-- Wow Animation -->
+<script src="/js/assets/wow.min.js"></script>
+
+<!-- Price Filter -->
+<script src="/js/assets/price-filter.js"></script>
+
+<!-- Mean Menu -->
+<script src="/js/assets/jquery.meanmenu.min.js"></script>
+
+<!-- Custom JS -->
+<script src="/js/plugins.js"></script>
+<script src="/js/custom.js"></script>
+
+</body>
+</html>
+

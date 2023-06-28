@@ -1,0 +1,152 @@
+<!doctype html>
+<html class="no-js" lang="zxx">
+<head>
+  <meta charset="utf-8">
+  <div th:include="fragment/header::inportFragment"></div>
+
+</head>
+<body>
+<div th:if="${currentUser != null}">Welcome <b th:text="${currentUser.name}"></b><br></div>
+<div th:if="${currentUser!= null}">
+  <script>
+    window.location.href = "/";
+  </script>
+</div>
+<div th:include="fragment/header::headrFragment"></div>
+
+<!-- Breadcrumb Area -->
+<section class="breadcrumb-area">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="breadcrumb-box text-center">
+          <ul class="list-unstyled list-inline">
+            <li class="list-inline-item"><a href="">Home</a></li>
+            <li class="list-inline-item"><span>||</span> login</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End Breadcrumb Area -->
+<!-- Log In -->
+<section class="login">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="n-customer">
+          <h5>New Customer</h5>
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatem est eum earum eius dolores, alias modi aut officia quo perferendis id aspernatur neque provident quas, quidem libero veritatis voluptatum illum!</p>
+          <a href="/user/register">Create an Account</a>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="r-customer">
+          <h5>Registered Customer</h5>
+          <p>If you have an account with us, please log in.</p>
+          <form action="/login" method="post">
+            <div class="emal">
+              <label>User name or email address</label>
+              <input type="text" name="username">
+            </div>
+            <div class="pass">
+              <label>Password</label>
+              <input type="password" name="password">
+            </div>
+            <div class="d-flex justify-content-between nam-btm">
+
+              <div>
+                <a href="">Lost your password?</a>
+              </div>
+            </div>
+            <button type="submit" name="button">Log In</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="brand2">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="tp-bnd owl-carousel">
+          <div class="bnd-items">
+            <a href="#"><img src="/images/brand-01.png" alt="" class="img-fluid"></a>
+          </div>
+          <div class="bnd-items">
+            <a href="#"><img src="/images/brand-02.png" alt="" class="img-fluid"></a>
+          </div>
+          <div class="bnd-items">
+            <a href="#"><img src="/images/brand-03.png" alt="" class="img-fluid"></a>
+          </div>
+          <div class="bnd-items">
+            <a href="#"><img src="/images/brand-04.png" alt="" class="img-fluid"></a>
+          </div>
+          <div class="bnd-items">
+            <a href="#"><img src="/images/brand-05.png" alt="" class="img-fluid"></a>
+          </div>
+          <div class="bnd-items">
+            <a href="#"><img src="/images/brand-06.png" alt="" class="img-fluid"></a>
+          </div>
+          <div class="bnd-items">
+            <a href="#"><img src="/images/brand-07.png" alt="" class="img-fluid"></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End Brand area 2 -->
+
+<!-- Footer Area -->
+
+<section class="footer-btm">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6">
+        <p>Copyright &copy; 2020 | Designed With <i class="fa fa-heart"></i> by <a href="#" target="_blank">SnazzyTheme</a></p>
+      </div>
+      <div class="col-md-6 text-right">
+        <img src="/images/payment.png" alt="" class="img-fluid">
+      </div>
+    </div>
+  </div>
+  <div class="back-to-top text-center">
+    <img src="/images/backtotop.png" alt="" class="img-fluid">
+  </div>
+</section>
+<!-- End Footer Area -->
+
+
+<!-- =========================================
+JavaScript Files
+========================================== -->
+
+<!-- jQuery JS -->
+<script src="/js/assets/vendor/jquery-1.12.4.min.js"></script>
+
+<!-- Bootstrap -->
+<script src="/js/assets/popper.min.js"></script>
+<script src="/js/assets/bootstrap.min.js"></script>
+
+<!-- Owl Slider -->
+<script src="/js/assets/owl.carousel.min.js"></script>
+
+<!-- Wow Animation -->
+<script src="/js/assets/wow.min.js"></script>
+
+<!-- Price Filter -->
+<script src="/js/assets/price-filter.js"></script>
+
+<!-- Mean Menu -->
+<script src="/js/assets/jquery.meanmenu.min.js"></script>
+
+<!-- Custom JS -->
+<script src="/js/plugins.js"></script>
+<script src="/js/custom.js"></script>
+
+</body>
+</html>
