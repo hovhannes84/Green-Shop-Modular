@@ -21,7 +21,7 @@ public class OrderDto {
     private UserDto userDto;
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     private Date orderDate;
-    private ProductDto product;
+    private ProductDto productDto;
     private int quantity;
 
 }
