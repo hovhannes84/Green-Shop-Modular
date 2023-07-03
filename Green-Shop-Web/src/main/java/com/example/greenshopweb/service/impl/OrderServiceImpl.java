@@ -47,7 +47,7 @@ public class OrderServiceImpl implements OrderService {
             for (Order order : orders) {
                 OrderDto orderDto = orderMapper.mapToDto(order);
                 orderDto.setUserDto(userMapper.mapToDto(order.getUser()));
-                orderDto.setProduct(productMapper.mapToDto(order.getProduct()));
+                orderDto.setProductDto(productMapper.mapToDto(order.getProduct()));
                 orderDtos.add(orderDto);
             }
             return orderDtos;
