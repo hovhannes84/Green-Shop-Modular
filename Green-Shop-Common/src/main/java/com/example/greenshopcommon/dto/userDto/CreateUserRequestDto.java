@@ -24,5 +24,6 @@ public class CreateUserRequestDto {
     private String street;
     private String city;
     private String postalCode;
-
+    private boolean enabled;
+    private String token;
 }

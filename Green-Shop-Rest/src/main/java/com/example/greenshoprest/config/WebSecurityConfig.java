@@ -33,7 +33,11 @@ public class WebSecurityConfig {
                 .authorizeHttpRequests()
                 .requestMatchers(HttpMethod.POST,"/user/auth").permitAll()
                 .requestMatchers(HttpMethod.POST,"/user/register").permitAll()
-                .requestMatchers(HttpMethod.GET,"/products/**").authenticated()
+                .requestMatchers(HttpMethod.GET,"/user/verify**").permitAll()
+                .requestMatchers(HttpMethod.POST,"/user/password-reset").permitAll()
+                .requestMatchers(HttpMethod.GET,"/products/**").permitAll()
+                .requestMatchers(HttpMethod.POST,"/**").permitAll()
+                .requestMatchers(HttpMethod.GET,"/category/**").permitAll()
 
                 .anyRequest().authenticated();
 
