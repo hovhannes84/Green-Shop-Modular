@@ -70,10 +70,11 @@
                     <div class="top-right text-right">
                         <ul class="list-unstyled list-inline">
                             <li class="list-inline-item"><a th:if="${currentUser!= null}" href="/user"><img
-                                     alt="">Welcome <b th:text="${currentUser.name}"></b> <br></a></li>
+                                    alt="">Welcome <b th:text="${currentUser.name}"></b> <br></a></li>
 
 
-                            <li class="list-inline-item"><a href="/user"><img src="/images/user.png" alt="">My Account</a>
+                            <li class="list-inline-item"><a href="/user"><img src="/images/user.png" alt="">My
+                                Account</a>
                             <li class="list-inline-item"><a th:if="${currentUser== null}" href="/login"><img
                                     src="/images/login.png" alt="">Login</a></li>
                             <li class="list-inline-item"><a th:if="${currentUser!= null}" href="/logout"><img
@@ -106,7 +107,7 @@
                                         th:text="${category.name}"></option>
                             </select>
                         </div>
-                        <button  type="submit"><i class="fa fa-search"></i></button>
+                        <button type="submit"><i class="fa fa-search"></i></button>
                     </form>
                 </div>
 
@@ -155,7 +156,8 @@
             </div>
             <div class="cart-btm">
                 <p class="text-right">Sub Total: <span th:text="${subtotal}"></span></p>
-                <a href="#">Checkout</a>
+
+                <a href="/cart">Cart</a>
             </div>
         </div>
     </div>

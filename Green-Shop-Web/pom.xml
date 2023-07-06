@@ -28,7 +28,7 @@
             <artifactId>Green-Shop-Common</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
-<!--        <dependency>-->
+        <!--        <dependency>-->
 <!--            <groupId>org.mapstruct</groupId>-->
 <!--            <artifactId>mapstruct</artifactId>-->
 <!--            <version>${mapstruct.version}</version>-->

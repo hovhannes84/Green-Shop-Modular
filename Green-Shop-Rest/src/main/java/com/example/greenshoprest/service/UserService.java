@@ -13,5 +13,7 @@ public interface UserService {
 
     public ResponseEntity<UserDto> register(CreateUserRequestDto createUserRequestDto);
 
+    Boolean requestPasswordReset(String email);
 
+    Boolean confirmPasswordReset(String token, String newPassword);
 }

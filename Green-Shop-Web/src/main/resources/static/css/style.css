@@ -105,6 +105,14 @@ body {
   font-family: "Source Sans Pro", sans-serif;
 }
 
+.errorMsg {
+  color: red;
+}
+
+.greenMsg {
+  color: lawngreen;
+}
+
 h1, h1 a {
   font-size: 40px;
 }

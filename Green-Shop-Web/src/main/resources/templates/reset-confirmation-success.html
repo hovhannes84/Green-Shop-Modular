@@ -1,0 +1,76 @@
+<!doctype html>
+<html class="no-js" lang="zxx" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8">
+  <title>Password Reset Request</title>
+  <div th:include="fragment/header::inportFragment"></div>
+
+</head>
+<body>
+
+<div th:include="fragment/header::headrFragment"></div>
+
+<!-- Breadcrumb Area -->
+<section class="breadcrumb-area">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="breadcrumb-box text-center">
+          <ul class="list-unstyled list-inline">
+            <li class="list-inline-item"><a href="/">Home</a></li>
+            <li class="list-inline-item"><span>||</span> Password Reset Request</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<h1>Password Reset Confirmation</h1><br>
+<h1 th:text="${message}"  class="greenMsg"> </h1>
+
+
+<div th:include="fragment/header::footerFragment"></div>
+
+<!-- End Footer Area -->
+
+
+<!-- =========================================
+JavaScript Files
+========================================== -->
+
+<!-- jQuery JS -->
+<script src="/js/assets/vendor/jquery-1.12.4.min.js"></script>
+
+<!-- Bootstrap -->
+<script src="/js/assets/popper.min.js"></script>
+<script src="/js/assets/bootstrap.min.js"></script>
+
+<!-- Owl Slider -->
+<script src="/js/assets/owl.carousel.min.js"></script>
+
+<!-- Wow Animation -->
+<script src="/js/assets/wow.min.js"></script>
+
+<!-- Price Filter -->
+<script src="/js/assets/price-filter.js"></script>
+
+<!-- Mean Menu -->
+<script src="/js/assets/jquery.meanmenu.min.js"></script>
+
+<!-- Custom JS -->
+<script src="/js/plugins.js"></script>
+<script src="/js/custom.js"></script>
+
+
+
+<script>
+  setTimeout(function() {
+    window.location.href = "/";
+  }, 10000);
+</script>
+
+</body>
+</html>
+
+
