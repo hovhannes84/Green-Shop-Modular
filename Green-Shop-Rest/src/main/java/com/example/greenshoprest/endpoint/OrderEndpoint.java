@@ -1,6 +1,7 @@
 package com.example.greenshoprest.endpoint;
 
 
+import com.example.greenshopcommon.dto.orderDto.CreateOrderRequestDto;
 import com.example.greenshopcommon.dto.orderDto.OrderDto;
 import com.example.greenshoprest.security.CurrentUser;
 import com.example.greenshoprest.service.OrderService;
@@ -19,30 +20,22 @@ public class OrderEndpoint {
     private final OrderService orderService;
 
     @GetMapping("/{id}")
-    public ResponseEntity<OrderDto> getOrderById(@PathVariable int id) {
-        OrderDto orderDto = orderService.getOrderById(id);
-        if (orderDto != null) {
-            return ResponseEntity.ok(orderDto);
-        }
-        return null;
-    }
+    public ResponseEntity<?> getOrderById(@PathVariable int id) {
+        return orderService.getOrderById(id);
 
+    }
     @GetMapping
     public ResponseEntity<List<OrderDto>> getOrdersByUserId(@AuthenticationPrincipal CurrentUser currentUser) {
-        List<OrderDto> orders = orderService.getOrdersByUserId(currentUser.getUser());
-        return ResponseEntity.ok(orders);
+        return  orderService.getOrdersByUserId(currentUser.getUser());
     }
 
-//    @PostMapping()
-//    public ResponseEntity<OrderDto> addOrder(@RequestBody CreateOrderRequestDto createOrderRequestDto,@AuthenticationPrincipal CurrentUser currentUser) {
-//        OrderDto createdOrder = orderService.addOrder(createOrderRequestDto,currentUser.getUser());
-//        return ResponseEntity.ok(createdOrder);
-//    }
+    @PostMapping()
+    public ResponseEntity<?> addOrder(@RequestBody CreateOrderRequestDto createOrderRequestDto, @AuthenticationPrincipal CurrentUser currentUser) {
+        return  orderService.addOrder(createOrderRequestDto,currentUser.getUser());
+    }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteOrderById(@PathVariable int id) {
-        orderService.deleteOrderById(id);
-        return ResponseEntity.noContent().build();
+    public ResponseEntity<?> deleteOrderById(@PathVariable int id) {
+        return   orderService.deleteOrderById(id);
     }
-
 }
