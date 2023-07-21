@@ -104,4 +104,22 @@ public class UserServiceImpl implements UserService {
         }
         return false;
     }
+
+    public ResponseEntity<?> verifyUser(String email, String token) {
+        Optional<User> byEmail = userRepository.findByEmail(email);
+        if (byEmail.isEmpty()) {
+            return ResponseEntity.badRequest().body("Invalid email");
+        }
+        if (byEmail.get().isEnabled()) {
+            return ResponseEntity.badRequest().body("User already verified");
+        }
+        if (byEmail.get().getToken().equals(token)) {
+            User user = byEmail.get();
+            user.setEnabled(true);
+            user.setToken(null);
+            userRepository.save(user);
+            return ResponseEntity.ok("User verified");
+        }
+        return ResponseEntity.badRequest().body("Invalid token");
+    }
 }

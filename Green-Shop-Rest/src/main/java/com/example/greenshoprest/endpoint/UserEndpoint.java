@@ -4,28 +4,17 @@ import com.example.greenshopcommon.dto.userDto.CreateUserRequestDto;
 import com.example.greenshopcommon.dto.userDto.UserAuthRequestDto;
 import com.example.greenshopcommon.dto.userDto.UserAuthResponseDto;
 import com.example.greenshopcommon.dto.userDto.UserDto;
-import com.example.greenshopcommon.entity.User;
-import com.example.greenshopcommon.mapper.UserMapper;
-import com.example.greenshopcommon.repository.UserRepository;
 import com.example.greenshoprest.service.UserService;
-import com.example.greenshoprest.util.JwtTokenUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/user")
 @RequiredArgsConstructor
 public class UserEndpoint {
 
-    private final UserRepository userRepository;
-    private final PasswordEncoder passwordEncoder;
-    private final JwtTokenUtil tokenUtil;
-    private final UserMapper userMapper;
     private final UserService userService;
 
 
@@ -41,23 +30,9 @@ public class UserEndpoint {
     }
 
     @GetMapping("/verify")
-    public ResponseEntity<String> verifyUser(@RequestParam("email") String email,
+    public ResponseEntity<?> verifyUser(@RequestParam("email") String email,
                                              @RequestParam("token") String token) {
-        Optional<User> byEmail = userRepository.findByEmail(email);
-        if (byEmail.isEmpty()) {
-            return ResponseEntity.badRequest().body("Invalid email");
-        }
-        if (byEmail.get().isEnabled()) {
-            return ResponseEntity.badRequest().body("User already verified");
-        }
-        if (byEmail.get().getToken().equals(token)) {
-            User user = byEmail.get();
-            user.setEnabled(true);
-            user.setToken(null);
-            userRepository.save(user);
-            return ResponseEntity.ok("User verified");
-        }
-        return ResponseEntity.badRequest().body("Invalid token");
+        return userService.verifyUser(email,token);
     }
 
     @PostMapping("/password-reset")
