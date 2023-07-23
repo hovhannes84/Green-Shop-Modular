@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd
+                                       http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <changeSet id="CreateTablasGreenShop" author="GreenShop">
+
+
+        <createTable tableName="category">
+            <column name="id" type="int" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+
+        <createTable tableName="product">
+            <column name="id" type="int" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="varchar(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="price" type="decimal(10, 2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="description" type="text"/>
+            <column name="image" type="varchar(200)"/>
+            <column name="category_id" type="int">
+                <constraints nullable="true" foreignKeyName="product_ibfk_1"
+                             referencedTableName="category" referencedColumnNames="id"/>
+            </column>
+            <column name="quantity" type="int">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <createIndex indexName="category_id" tableName="product">
+            <column name="category_id"/>
+        </createIndex>
+
+
+        <createTable tableName="user">
+            <column name="id" type="int" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="surname" type="varchar(50)"/>
+            <column name="password" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="email" type="varchar(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="role" type="enum('ADMIN', 'CUSTOMER')" defaultValue="CUSTOMER">
+                <constraints nullable="false"/>
+            </column>
+            <column name="phone" type="varchar(50)"/>
+            <column name="house" type="varchar(100)"/>
+            <column name="street" type="varchar(100)"/>
+            <column name="city" type="varchar(50)"/>
+            <column name="postal_code" type="varchar(20)"/>
+            <column name="country" type="varchar(50)"/>
+            <column name="enabled" type="tinyint(1)" defaultValue="0"/>
+            <column name="token" type="varchar(255)"/>
+        </createTable>
+
+
+        <createTable tableName="cart">
+            <column name="id" type="int" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="user_id" type="int">
+                <constraints nullable="true" foreignKeyName="cart_ibfk_1"
+                             referencedTableName="user" referencedColumnNames="id"/>
+            </column>
+            <column name="product_id" type="int">
+                <constraints nullable="true" foreignKeyName="cart_ibfk_2"
+                             referencedTableName="product" referencedColumnNames="id"/>
+            </column>
+            <column name="quantity" type="int">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+
+        <createTable tableName="order_table">
+            <column name="id" type="int" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="user_id" type="int">
+                <constraints nullable="true" foreignKeyName="order_table_ibfk_1"
+                             referencedTableName="user" referencedColumnNames="id"/>
+            </column>
+            <column name="product_id" type="int">
+                <constraints nullable="true" foreignKeyName="order_table_ibfk_2"
+                             referencedTableName="product" referencedColumnNames="id"/>
+            </column>
+            <column name="order_date" type="timestamp" defaultValueComputed="CURRENT_TIMESTAMP"/>
+        </createTable>
+
+
+        <createTable tableName="ratingsreview">
+            <column name="id" type="int" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="user_id" type="int">
+                <constraints nullable="true" foreignKeyName="ratingsreview_ibfk_1"
+                             referencedTableName="user" referencedColumnNames="id"/>
+            </column>
+            <column name="product_id" type="int">
+                <constraints nullable="true" foreignKeyName="ratingsreview_ibfk_2"
+                             referencedTableName="product" referencedColumnNames="id"/>
+            </column>
+            <column name="rating" type="decimal(2, 1)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="review" type="text"/>
+            <column name="date_time" type="datetime"/>
+        </createTable>
+
+
+    </changeSet>
+
+</databaseChangeLog>

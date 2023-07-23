@@ -45,39 +45,49 @@
                         <tr th:each="cartDto : ${carts}">
                             <td class="t-pro d-flex">
                                 <div class="t-img">
-                                    <a href="#"><img th:src="${cartDto.productDto.getImage()}" alt=""></a>
+                                    <a href="#"><img th:src="${cartDto.productDto.image}" alt=""></a>
                                 </div>
                                 <div class="t-content">
                                     <p class="t-heading"><a href="#" th:text="${cartDto.productDto.name}"></a></p>
                                     <ul class="list-unstyled list-inline rate">
                                         <li class="list-inline-item" th:each="star : ${#numbers.sequence(1, 5)}">
-                                            <i th:class="${star <= cartDto.productDto.getRating()} ? 'fa fa-star' : 'fa fa-star-o'"></i>
+                                            <i th:class="${star le cartDto.productDto.rating} ? 'fa fa-star' : 'fa fa-star-o'"></i>
                                         </li>
                                     </ul>
                                 </div>
                             </td>
                             <td class="t-price" th:text="${cartDto.productDto.price}"></td>
                             <td class="t-qty">
-
                                 <div class="qty-box">
                                     <form method="POST" action="/cart/update">
                                         <div class="quantity buttons_added">
                                             <input type="hidden" name="cartId" th:value="${cartDto.id}">
                                             <input type="button" value="-" class="minus">
-                                            <input type="number" name="quantity" step="1" min="1" max="10"
-                                                   th:value="${cartDto.quantity}" class="qty text" size="4">
+                                            <input type="number" name="quantity" step="1" min="1" max="10" th:value="${cartDto.quantity}" class="qty text" size="4">
                                             <input type="button" value="+" class="plus">
-                                            <input type="submit" value="Update" class="update-btn"></div>
+                                            <input type="submit" value="Update" class="update-btn">
+                                        </div>
                                     </form>
                                 </div>
-
-
+                                <div class="qty-box">
+                                    <form method="POST" action="/order">
+                                        <div class="quantity buttons_added">
+                                            <input type="hidden" name="userDto" th:value="${cartDto.userDto.getId()}">
+                                            <input type="hidden" name="productDto" th:value="${cartDto.productDto.getId()}">
+                                            <input type="hidden" name="quantity" th:value="${cartDto.quantity}">
+                                            <input type="submit" value="Pay" class="update-btn">
+                                        </div>
+                                    </form>
+                                </div>
                             </td>
                             <td class="t-total" th:text="${cartDto.productDto.price * cartDto.quantity}"></td>
-                            <td class="t-rem"><a th:href="@{/cart/remove(id=${cartDto.id})}">Delate<i class="fa fa-trash-o"></i></a></td>
+                            <td class="t-rem">
+                                <a th:href="@{/cart/remove(id=${cartDto.id})}">
+                                    Delete
+                                    <i class="fa fa-trash-o"></i>
+                                </a>
+                            </td>
                         </tr>
-
-
                         </tbody>
                     </table>
                 </div>
@@ -85,12 +95,12 @@
             <div class="col-md-4">
                 <div class="shipping">
                     <h6>Calculate Shipping and Tax</h6>
-                    <p>Enter your destination to get shipping estimate</p>
+                    <p>Enter your destination to get a shipping estimate</p>
                     <form action="#">
                         <div class="country-box">
                             <select class="country">
                                 <option>Select Country</option>
-                                <option>United State</option>
+                                <option>United States</option>
                                 <option>United Kingdom</option>
                                 <option>Germany</option>
                                 <option>Australia</option>
@@ -132,18 +142,16 @@
                     <div class="cart-btns text-right">
                         <form action="/cart/update" method="post">
                             <input type="hidden" name="productId" value="<productIdValue>">
-                            <button type="submit" class="up-cart">Update Cart</button>
-                            <button type="button" class="chq-out">Checkout</button>
+                            <button type="submit" class="up-cart">PAY</button>
                         </form>
                     </div>
-
                 </div>
             </div>
-
         </div>
     </div>
 </section>
 <!-- End Shopping Cart -->
+
 <div th:include="fragment/header::footerFragment"></div>
 
 <!-- End Footer Area -->
@@ -174,7 +182,5 @@ JavaScript Files
 <script src="/js/plugins.js"></script>
 <script src="/js/custom.js"></script>
 
-
 </body>
 </html>
-
