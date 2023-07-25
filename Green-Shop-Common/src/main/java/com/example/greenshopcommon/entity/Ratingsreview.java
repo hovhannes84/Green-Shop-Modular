@@ -30,4 +30,5 @@ public class Ratingsreview {
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     private Date dateTime;
 
+
 }
