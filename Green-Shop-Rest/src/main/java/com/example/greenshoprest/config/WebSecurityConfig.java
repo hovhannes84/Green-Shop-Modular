@@ -34,6 +34,7 @@ public class WebSecurityConfig {
                 .requestMatchers(HttpMethod.POST,"/user/auth").permitAll()
                 .requestMatchers(HttpMethod.POST,"/user/register").permitAll()
                 .requestMatchers(HttpMethod.GET,"/user/verify**").permitAll()
+                .requestMatchers(HttpMethod.GET,"/product/**").permitAll()
                 .requestMatchers(HttpMethod.POST,"/user/password-reset").permitAll()
                 .requestMatchers(HttpMethod.GET,"/products/**").permitAll()
                 .requestMatchers(HttpMethod.POST,"/**").permitAll()

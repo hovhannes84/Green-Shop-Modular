@@ -6,6 +6,7 @@ import com.example.greenshopcommon.dto.ratingsreviewDto.RatingsreviewDto;
 import com.example.greenshopcommon.dto.ratingsreviewDto.UpdateRatingsreviewRequestDto;
 import com.example.greenshopcommon.entity.Ratingsreview;
 import com.example.greenshopcommon.mapper.RatingsreviewMapper;
+import com.example.greenshopcommon.repository.ProductRepository;
 import com.example.greenshopcommon.repository.RatingsreviewRepository;
 import com.example.greenshoprest.security.CurrentUser;
 import com.example.greenshoprest.service.ProductService;
@@ -25,6 +26,7 @@ public class RatingsreviewServiceImpl implements RatingsreviewService {
 
     private final RatingsreviewRepository ratingsreviewRepository;
     private final ProductService productService;
+    private final ProductRepository productRepository;
     private final RatingsreviewMapper ratingsreviewMapper;
 
     @Override
@@ -48,7 +50,7 @@ public class RatingsreviewServiceImpl implements RatingsreviewService {
     }
     @Override
     public ResponseEntity<?> createReviewAndRating(CreateRatingsreviewRequestDto createRatingsreviewRequestDto, CurrentUser currentUser) {
-        return productService.findById(createRatingsreviewRequestDto.getProductDto().getId())
+        return productRepository.findById(createRatingsreviewRequestDto.getProductDto().getId())
                 .map(product -> {
                     Ratingsreview ratingsreview = ratingsreviewMapper.map(createRatingsreviewRequestDto);
                     ratingsreview.setProduct(product);
@@ -71,7 +73,7 @@ public class RatingsreviewServiceImpl implements RatingsreviewService {
     }
     @Override
     public ResponseEntity<?> updateRatingsreview(UpdateRatingsreviewRequestDto updateRatingsreviewRequestDto, CurrentUser currentUser) {
-        return productService.findById(updateRatingsreviewRequestDto.getProductDto().getId())
+        return productRepository.findById(updateRatingsreviewRequestDto.getProductDto().getId())
                 .map(product -> {
                     Ratingsreview ratingsreview = ratingsreviewMapper.updateDto(updateRatingsreviewRequestDto);
                     ratingsreview.setProduct(product);
