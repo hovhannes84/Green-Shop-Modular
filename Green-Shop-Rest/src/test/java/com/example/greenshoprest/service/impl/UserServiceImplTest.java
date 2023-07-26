@@ -1,4 +1,4 @@
-package com.example.greenshoprest.endpoint;
+package com.example.greenshoprest.service.impl;
 
 import com.example.greenshopcommon.dto.userDto.CreateUserRequestDto;
 import com.example.greenshopcommon.dto.userDto.UserAuthRequestDto;
