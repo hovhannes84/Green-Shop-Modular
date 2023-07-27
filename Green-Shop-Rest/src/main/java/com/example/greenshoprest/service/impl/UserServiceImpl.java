@@ -17,7 +17,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
+import javax.validation.Valid;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -33,7 +33,6 @@ public class UserServiceImpl implements UserService {
     @Value("${site.url}")
     private String siteUrl;
 
-
     @Override
     public ResponseEntity<UserAuthResponseDto> auth(UserAuthRequestDto userAuthRequestDto) {
         Optional<User> byEmail = userRepository.findByEmail(userAuthRequestDto.getEmail());
@@ -48,12 +47,10 @@ public class UserServiceImpl implements UserService {
         UserAuthResponseDto userAuthResponseDto = new UserAuthResponseDto(token);
 
         return ResponseEntity.ok(userAuthResponseDto);
-
     }
 
     @Override
-    public ResponseEntity<UserDto> register(CreateUserRequestDto createUserRequestDto) {
-        System.out.println(createUserRequestDto);
+    public ResponseEntity<UserDto> register(@Valid CreateUserRequestDto createUserRequestDto) {
         Optional<User> byEmail = userRepository.findByEmail(createUserRequestDto.getEmail());
         if (byEmail.isPresent()) {
             return ResponseEntity.status(HttpStatus.CONFLICT).build();
@@ -70,9 +67,7 @@ public class UserServiceImpl implements UserService {
                         + " Please verify your email by clicking on this url: "
                         + siteUrl + "/user/verify?email=" + user.getEmail() + "&token=" + token);
         return ResponseEntity.ok(userMapper.mapToDto(user));
-
     }
-
 
     @Override
     public Boolean requestPasswordReset(String email) {
@@ -89,7 +84,6 @@ public class UserServiceImpl implements UserService {
             return true;
         }
         return false;
-
     }
 
     @Override

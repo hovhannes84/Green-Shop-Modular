@@ -5,6 +5,8 @@ import jakarta.persistence.*;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import java.util.Date;
 
 @Data
@@ -23,6 +25,8 @@ public class Ratingsreview {
     @JoinColumn(name = "product_id")
     private Product product;
 
+    @Min(value = 1, message = "Rating must be at least 1")
+    @Max(value = 5, message = "Rating cannot be more than 5")
     private double rating;
 
     private String review;
