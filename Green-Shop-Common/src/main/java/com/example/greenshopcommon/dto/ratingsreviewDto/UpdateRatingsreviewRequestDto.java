@@ -24,7 +24,6 @@ public class UpdateRatingsreviewRequestDto {
     private UserDto userDto;
     @Valid
     private ProductDto productDto;
-    @Min(value = 1, message = "Rating must be at least 1")
     @Max(value = 5, message = "Rating cannot be more than 5")
     private String review;
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")

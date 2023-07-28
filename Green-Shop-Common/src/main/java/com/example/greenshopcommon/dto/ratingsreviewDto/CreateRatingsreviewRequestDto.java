@@ -26,7 +26,6 @@ public class CreateRatingsreviewRequestDto {
     @Valid
     private ProductDto productDto;
 
-    @Min(value = 1, message = "Rating must be at least 1")
     @Max(value = 5, message = "Rating cannot be more than 5")
     private double rating;
     private String review;

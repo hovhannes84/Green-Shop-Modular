@@ -5,6 +5,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.NotBlank;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -12,5 +14,7 @@ import lombok.NoArgsConstructor;
 public class UpdateCategoryRequestDto {
 
     private  int id;
+
+    @NotBlank(message = "Name is required")
     private String name;
 }
