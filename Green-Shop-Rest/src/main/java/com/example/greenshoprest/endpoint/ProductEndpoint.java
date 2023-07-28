@@ -40,11 +40,16 @@ public class ProductEndpoint {
             @RequestParam("image") MultipartFile multipartFile) throws IOException {
         return productService.uploadImage(productId,multipartFile);
     }
-    @GetMapping(value = "/getImage",
-            produces = MediaType.IMAGE_JPEG_VALUE)
-    public @ResponseBody byte[] getImage(@RequestParam("picName") String picName) throws IOException {
-        return productService.getImage(picName);
+    @GetMapping(value = "/getImage", produces = MediaType.IMAGE_JPEG_VALUE)
+    public ResponseEntity<byte[]> getImage(@RequestParam("picName") String picName) throws IOException {
+        byte[] imageData = productService.getImage(picName);
+        if (imageData != null) {
+            return ResponseEntity.ok(imageData);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
+
 
     @PutMapping("/{id}")
     public ResponseEntity<?> update(@PathVariable("id") int id, @RequestBody UpdateProductRequestDto updateProductRequestDto) throws IOException {

@@ -56,12 +56,12 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public ResponseEntity<?> deleteById(int id) {
-        return categoryRepository.findById(id)
-                .map(category -> {
-                    categoryRepository.deleteById(id);
-                    return ResponseEntity.noContent().build();
-                })
-                .orElse(ResponseEntity.notFound().build());
+        if (categoryRepository.existsById(id)) {
+            categoryRepository.deleteById(id);
+            return ResponseEntity.noContent().build();
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @Override
