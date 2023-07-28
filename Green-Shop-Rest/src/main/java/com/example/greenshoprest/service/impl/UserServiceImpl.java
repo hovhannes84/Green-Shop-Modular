@@ -12,17 +12,20 @@ import com.example.greenshopcommon.service.SendMailService;
 import com.example.greenshoprest.service.UserService;
 import com.example.greenshoprest.util.JwtTokenUtil;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
 import javax.validation.Valid;
 import java.util.Optional;
 import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
@@ -33,8 +36,13 @@ public class UserServiceImpl implements UserService {
     @Value("${site.url}")
     private String siteUrl;
 
+    // Logging authentication request
     @Override
     public ResponseEntity<UserAuthResponseDto> auth(UserAuthRequestDto userAuthRequestDto) {
+        if (userAuthRequestDto == null) {
+            throw new IllegalArgumentException("userAuthRequestDto or its associated User must not be null.");
+        }
+        log.info("Authentication request received for user with email: {}", userAuthRequestDto.getEmail());
         Optional<User> byEmail = userRepository.findByEmail(userAuthRequestDto.getEmail());
         if (byEmail.isEmpty()) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
@@ -49,8 +57,13 @@ public class UserServiceImpl implements UserService {
         return ResponseEntity.ok(userAuthResponseDto);
     }
 
+    // Logging user registration request
     @Override
     public ResponseEntity<UserDto> register(@Valid CreateUserRequestDto createUserRequestDto) {
+        if (createUserRequestDto == null) {
+            throw new IllegalArgumentException("createUserRequestDto or its associated User must not be null.");
+        }
+        log.info("User registration request received for user with email: {}", createUserRequestDto.getEmail());
         Optional<User> byEmail = userRepository.findByEmail(createUserRequestDto.getEmail());
         if (byEmail.isPresent()) {
             return ResponseEntity.status(HttpStatus.CONFLICT).build();
@@ -69,8 +82,10 @@ public class UserServiceImpl implements UserService {
         return ResponseEntity.ok(userMapper.mapToDto(user));
     }
 
+    // Logging password reset request
     @Override
     public Boolean requestPasswordReset(String email) {
+        log.info("Password reset request received for user with email: {}", email);
         Optional<User> optionalUser = userRepository.findByEmail(email);
         if (optionalUser.isPresent()) {
             User user = optionalUser.get();
@@ -86,8 +101,10 @@ public class UserServiceImpl implements UserService {
         return false;
     }
 
+    // Logging password reset confirmation request
     @Override
     public Boolean confirmPasswordReset(String token, String newPassword) {
+        log.info("Password reset confirmation request received for token: {}", token);
         Optional<User> userOptional = userRepository.findByToken(token);
         if (userOptional.isPresent()) {
             User user = userOptional.get();
@@ -99,7 +116,9 @@ public class UserServiceImpl implements UserService {
         return false;
     }
 
+    // Logging user verification request
     public ResponseEntity<?> verifyUser(String email, String token) {
+        log.info("User verification request received for user with email: {}", email);
         Optional<User> byEmail = userRepository.findByEmail(email);
         if (byEmail.isEmpty()) {
             return ResponseEntity.badRequest().body("Invalid email");

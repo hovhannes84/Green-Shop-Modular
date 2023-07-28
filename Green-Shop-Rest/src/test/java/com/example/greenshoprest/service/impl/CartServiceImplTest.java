@@ -9,6 +9,8 @@ import com.example.greenshopcommon.entity.Cart;
 import com.example.greenshopcommon.entity.Product;
 import com.example.greenshopcommon.entity.Role;
 import com.example.greenshopcommon.entity.User;
+import com.example.greenshopcommon.exception.EntityNotFoundException;
+import com.example.greenshopcommon.exception.IllegalArgumentExceptionError;
 import com.example.greenshopcommon.mapper.CartMapper;
 import com.example.greenshopcommon.mapper.ProductMapper;
 import com.example.greenshopcommon.repository.CartRepository;
@@ -134,7 +136,7 @@ class CartServiceImplTest {
     }
 
     @Test
-    void testFindCartById_CartFound_ReturnsCartDto() {
+    void testFindCartById_CartFound_ReturnsCartDto() throws EntityNotFoundException {
 
         int cartId = 1;
         Cart cart = new Cart();
@@ -161,7 +163,7 @@ class CartServiceImplTest {
     }
 
     @Test
-    void testFindCartById_CartNotFound_ReturnsNotFound() {
+    void testFindCartById_CartNotFound_ReturnsNotFound() throws EntityNotFoundException {
 
         int cartId = 1;
 
@@ -174,7 +176,7 @@ class CartServiceImplTest {
     }
 
     @Test
-    void testAddCart_ReturnsCreatedCartDto() {
+    void testAddCart_ReturnsCreatedCartDto() throws IllegalArgumentExceptionError {
 
         CreateCartRequestDto createCartRequestDto = new CreateCartRequestDto();
         createCartRequestDto.setId(1);

@@ -4,6 +4,7 @@ import com.example.greenshopcommon.dto.categoryDto.CategoryDto;
 import com.example.greenshopcommon.dto.categoryDto.CreateCategoryRequestDto;
 import com.example.greenshopcommon.dto.categoryDto.UpdateCategoryRequestDto;
 import com.example.greenshopcommon.entity.Category;
+import com.example.greenshopcommon.exception.EntityAlreadyExistsException;
 import com.example.greenshopcommon.mapper.CategoryMapper;
 import com.example.greenshopcommon.repository.CategoryRepository;
 import org.junit.jupiter.api.Test;
@@ -36,7 +37,7 @@ public class CategoryServiceImplTest {
     private CategoryServiceImpl categoryService;
 
     @Test
-    void testAddCategorySuccess() throws IOException {
+    void testAddCategorySuccess() throws IOException, EntityAlreadyExistsException {
         String categoryName = "Test Category";
         CreateCategoryRequestDto requestDto = new CreateCategoryRequestDto();
         requestDto.setName(categoryName);
@@ -55,7 +56,7 @@ public class CategoryServiceImplTest {
     }
 
     @Test
-    void testAddCategoryConflict() throws IOException {
+    void testAddCategoryConflict() throws IOException, EntityAlreadyExistsException {
         String categoryName = "Test Category";
         CreateCategoryRequestDto requestDto = new CreateCategoryRequestDto();
         requestDto.setName(categoryName);
