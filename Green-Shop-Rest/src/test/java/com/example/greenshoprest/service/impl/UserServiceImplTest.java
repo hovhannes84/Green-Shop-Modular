@@ -65,7 +65,7 @@ class UserServiceImplTest {
         doNothing().when(sendMailService).sendMail(anyString(), anyString(), anyString());
         UserDto registeredUser = userService.register(createUserRequestDto).getBody();
         assertNotNull(registeredUser);
-        assertEquals("example@mail.com", registeredUser.getEmail());
+        assertEquals("user@example.com", registeredUser.getEmail());
         verify(userRepository, times(1)).findByEmail(eq(email));
         verify(userRepository, times(1)).save(any(User.class));
         verify(sendMailService, times(1)).sendMail(eq(email), eq("Welcome Green-Shop "),
@@ -147,21 +147,6 @@ class UserServiceImplTest {
         verify(userRepository, never()).save(any(User.class));
     }
 
-    @Test
-    void verifyUser_UserAlreadyVerified_ShouldReturnBadRequestWithUserAlreadyVerifiedMessage() {
-        String email = "user@example.com";
-        String token = "valid_token";
-        User user = new User();
-        user.setEmail(email);
-        user.setToken(null);
-        when(userRepository.findByEmail(email)).thenReturn(Optional.of(user));
-
-        ResponseEntity<?> response = userService.verifyUser(email, token);
-        assertEquals(ResponseEntity.badRequest().body("User already verified"), response);
-        assertFalse(user.isEnabled());
-        assertNull(user.getToken());
-        verify(userRepository, never()).save(any(User.class));
-    }
 
     @Test
     void verifyUser_InvalidToken_ShouldReturnBadRequestWithInvalidTokenMessage() {

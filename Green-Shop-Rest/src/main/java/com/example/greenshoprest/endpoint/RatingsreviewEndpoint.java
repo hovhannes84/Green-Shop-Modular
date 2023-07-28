@@ -9,6 +9,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("/ratingsreviews")
 @RequiredArgsConstructor
@@ -17,14 +19,14 @@ public class RatingsreviewEndpoint {
     private final RatingsreviewService ratingsreviewService;
 
     @PostMapping("/create")
-    public ResponseEntity<?> createRatingsreview(@ModelAttribute("ratingsreview") CreateRatingsreviewRequestDto createRatingsreviewRequestDto,
+    public ResponseEntity<?> createRatingsreview(@Valid @ModelAttribute("ratingsreview") CreateRatingsreviewRequestDto createRatingsreviewRequestDto,
                                               @AuthenticationPrincipal CurrentUser currentUser) {
         return  ratingsreviewService.createReviewAndRating(createRatingsreviewRequestDto, currentUser);
     }
 
     @PostMapping("/update/{id}")
     public ResponseEntity<?> updateRatingsreview(@PathVariable int id,
-                                                   @ModelAttribute("ratingsreview") UpdateRatingsreviewRequestDto updatedRatingsreview,
+                                                 @Valid @ModelAttribute("ratingsreview") UpdateRatingsreviewRequestDto updatedRatingsreview,
                                                    @AuthenticationPrincipal CurrentUser currentUser) {
         return  ratingsreviewService.updateRatingsreview(updatedRatingsreview, currentUser);
     }
