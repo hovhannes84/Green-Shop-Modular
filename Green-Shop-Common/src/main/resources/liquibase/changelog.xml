@@ -128,4 +128,12 @@
 
     </changeSet>
 
+
+    <changeSet author="Greenshop" id="addColumn-rating_productTable">
+        <addColumn tableName="product">
+            <column name="rating" type="varchar(255)"/>
+        </addColumn>
+    </changeSet>
+
+
 </databaseChangeLog>
