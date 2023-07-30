@@ -78,7 +78,7 @@ public class UserController {
             model.addAttribute("error", "An error occurred during user registration");
             return "register";
         }
-        return "redirect:/";
+        return "registration_was_successful";
     }
 
     // Method to handle user verification
