@@ -45,7 +45,7 @@
                         <tr th:each="cartDto : ${carts}">
                             <td class="t-pro d-flex">
                                 <div class="t-img">
-                                    <a href="#"><img th:src="${cartDto.productDto.image}" alt=""></a>
+                                    <a href="#"><img th:src="${cartDto.productDto.getPicUrl()}" alt=""></a>
                                 </div>
                                 <div class="t-content">
                                     <p class="t-heading"><a href="#" th:text="${cartDto.productDto.name}"></a></p>
